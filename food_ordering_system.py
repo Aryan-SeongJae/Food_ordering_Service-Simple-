@@ -1,7 +1,7 @@
 import os
 import platform
-import mysql.connector
 import pymysql
+
 
 mydb = pymysql.connect(host = "localhost", user = "root", passwd = "#Teamwork987", database = "Food_Ordering_System")
 
@@ -120,7 +120,6 @@ def Order_Food():
     print("Order Details Added Successfully")
 
 
-
 def View():
     print("Welcome to the Food Ordering System")
     print("1. Employee")
@@ -131,38 +130,58 @@ def View():
     ch = int(input("Enter your choice: "))
 
     if ch == 1:
-        s = int(input("Enter the Employee ID: "))
-        rl = (s,)
-        sql = "SELECT * FROM Employee WHERE Employee_Id = %s"
-        mycursor.execute(sql, rl)
+        s = input("Enter the Employee ID or 'ALL' to view all: ")
+        if s.lower() == 'all':
+            sql = "SELECT * FROM Employee"
+            mycursor.execute(sql)
+        else:
+            rl = (int(s),)
+            sql = "SELECT * FROM Employee WHERE Employee_Id = %s"
+            mycursor.execute(sql, rl)
         res = mycursor.fetchall()
         for x in res:
             print(x)
 
     elif ch == 2:
-        s = int(input("Enter the Customer ID: "))
-        rl = (s,)
-        sql = "SELECT * FROM Customer WHERE Customer_Id = %s"
-        mycursor.execute(sql, rl)
+        s = input("Enter the Customer ID or 'ALL' to view all: ")
+        if s.lower() == 'all':
+            sql = "SELECT * FROM Customer"
+            mycursor.execute(sql)
+        else:
+            rl = (int(s),)
+            sql = "SELECT * FROM Customer WHERE Customer_Id = %s"
+            mycursor.execute(sql, rl)
         res = mycursor.fetchall()
         for x in res:
             print(x)
 
     elif ch == 3:
-        sql = "SELECT * FROM Food"
-        mycursor.execute(sql)
+        s = input("Enter the Food ID or 'ALL' to view all: ")
+        if s.lower() == 'all':
+            sql = "SELECT * FROM Food"
+            mycursor.execute(sql)
+        else:
+            rl = (int(s),)
+            sql = "SELECT * FROM Food WHERE Food_Id = %s"
+            mycursor.execute(sql, rl)
         res = mycursor.fetchall()
         for x in res:
             print(x)
 
     elif ch == 4:
-        s = int(input("Enter the Order ID: "))
-        rl = (s,)
-        sql = "SELECT * FROM Order_Food WHERE Order_Id = %s"
-        mycursor.execute(sql, rl)
+        s = input("Enter the Order ID or 'ALL' to view all: ")
+        if s.lower() == 'all':
+            sql = "SELECT * FROM Order_Food"
+            mycursor.execute(sql)
+        else:
+            rl = (int(s),)
+            sql = "SELECT * FROM Order_Food WHERE Order_Id = %s"
+            mycursor.execute(sql, rl)
         res = mycursor.fetchall()
         for x in res:
             print(x)
+
+
 
 def MenuSet():
     print("Welcome to the Food Ordering System")
